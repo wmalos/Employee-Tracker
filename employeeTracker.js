@@ -1,3 +1,4 @@
+const inquirer = require('inquirer');
 const mysql = require('mysql');
 
 const connection = mysql.createConnection({
@@ -15,11 +16,26 @@ const connection = mysql.createConnection({
 connection.connect((err) => {
     if (err) throw err;
     console.log(`connected as id ${connection.threadId}\n`);
-    //main menu fucntion();
+    mainMenu();
   });
 
 
-  // what are we doing?
-  // main menu function
+// what are we doing?
+// main menu function
+const mainMenu = () => {
+  inquirer
+    .prompt({
+      name: 'action',
+      type: 'rawlist',
+      message: '',
+      choices: [
+        'Add',
+        'View',
+        'Update',
+      ]
+    })
+}
 
-  
+//if then or switch statements for main menu options
+
+
