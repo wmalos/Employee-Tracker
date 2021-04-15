@@ -40,7 +40,7 @@ const mainMenu = () => {
     .then((answer) => {
       switch (answer.action) {
         case 'Add employee':
-          //Add function();
+          addEmployee();
           break;
 
         case 'View employee list':
@@ -72,9 +72,37 @@ const addEmployee = () => {
       name: 'employee_id',
       type: 'input',
       message: 'Enter employee id number',
-    })
-}
+    },
+    
+    {
+      name: 'first_name',
+      type: 'input',
+      message: 'Enter employees first name',
+    },
+
+    {
+    name: 'last_name',
+    type: 'input',
+    message: 'Enter employees last name',
+    },
+
+    {
+    name: 'employee_role',
+    type: 'input',
+    message: 'Enter employees role',
+    },
+
+    {
+      name: 'manager',
+      type: 'input',
+      message: 'Enter employees manager',
+    },
+    );
+};
 
 //if then or switch statements for main menu options
 
 
+
+
+const 
