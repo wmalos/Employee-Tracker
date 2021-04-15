@@ -29,25 +29,49 @@ const mainMenu = () => {
       type: 'rawlist',
       message: 'What would you like to do?',
       choices: [
-        'Add',
-        'View',
-        'Update',
+        'Add employee',
+        'View employee list',
+        'Add department',
+        'View departments',
+        'Add a role',
+        'Update roles',
       ],
     })
     .then((answer) => {
       switch (answer.action) {
-        case 'Add':
+        case 'Add employee':
           //Add function();
           break;
 
-        case 'View':
+        case 'View employee list':
+          //View function();
+          break;
+        
+        case 'Add department':
+          //Add function();
+          break;
+
+        case 'View departments':
           //View function();
           break;
 
-        case 'Update':
+        case 'Add a role':
+          //Add function();
+          break;
+
+        case 'Update roles':
           //Update function();
           break;
       }
+    })
+};
+
+const addEmployee = () => {
+  inquirer
+    .prompt({
+      name: 'employee_id',
+      type: 'input',
+      message: 'Enter employee id number',
     })
 }
 
