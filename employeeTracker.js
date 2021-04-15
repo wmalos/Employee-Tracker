@@ -27,12 +27,27 @@ const mainMenu = () => {
     .prompt({
       name: 'action',
       type: 'rawlist',
-      message: '',
+      message: 'What would you like to do?',
       choices: [
         'Add',
         'View',
         'Update',
-      ]
+      ],
+    })
+    .then((answer) => {
+      switch (answer.action) {
+        case 'Add':
+          //Add function();
+          break;
+
+        case 'View':
+          //View function();
+          break;
+
+        case 'Update':
+          //Update function();
+          break;
+      }
     })
 }
 
