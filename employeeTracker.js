@@ -56,7 +56,7 @@ const mainMenu = () => {
           break;
 
         case 'Add a role':
-          //Add function();
+          addRole();
           break;
 
         case 'Update roles':
@@ -105,4 +105,24 @@ const addEmployee = () => {
 
 
 
-const 
+const addRole = () => {
+  inquirer
+    .prompt({
+      name: 'role_id',
+      type: 'input',
+      message: 'Enter the id of the new role',
+    },
+
+    {
+      name: 'title',
+      type: 'input',
+      message: 'Enter title of role'
+    },
+
+    {
+      name: 'salary',
+      type: 'input',
+      message: 'Enter the salary for role',
+    },
+    );
+};
