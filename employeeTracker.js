@@ -48,7 +48,7 @@ const mainMenu = () => {
           break;
         
         case 'Add department':
-          //Add function();
+          addDepartment();
           break;
 
         case 'View departments':
@@ -100,7 +100,24 @@ const addEmployee = () => {
     );
 };
 
-//if then or switch statements for main menu options
+//view employee function
+
+
+
+const addDepartment = () => {
+  inquirer
+    .prompt({
+      name:'department_name',
+      type: 'input',
+      message: 'Enter the name of the department',
+    },
+    {
+      name: 'department_id',
+      type: 'input',
+      message: 'Enter the department id',
+    },
+    );
+}
 
 
 
