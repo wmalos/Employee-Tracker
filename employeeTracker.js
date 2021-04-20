@@ -1,3 +1,4 @@
+const { restoreDefaultPrompts } = require('inquirer');
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 
@@ -20,13 +21,12 @@ connection.connect((err) => {
   });
 
 
-// what are we doing?
 // main menu function
 const mainMenu = () => {
   inquirer
     .prompt({
       name: 'action',
-      type: 'rawlist',
+      type: 'list',
       message: 'What would you like to do?',
       choices: [
         'Add employee',
@@ -66,14 +66,14 @@ const mainMenu = () => {
     })
 };
 
+
 const addEmployee = () => {
+  connection.query("SELECT * FROM role", (err, res) => {
+    if (err) throw err;
+    var result = res.map(role => ({name: role.title, value: role.id}))
+    console.log(result);
   inquirer
-    .prompt({
-      name: 'employee_id',
-      type: 'input',
-      message: 'Enter employee id number',
-    },
-    
+    .prompt([
     {
       name: 'first_name',
       type: 'input',
@@ -88,8 +88,9 @@ const addEmployee = () => {
 
     {
     name: 'employee_role',
-    type: 'input',
-    message: 'Enter employees role',
+    type: 'list',
+    message: 'Select employees role',
+    choices: result
     },
 
     {
@@ -97,8 +98,26 @@ const addEmployee = () => {
       type: 'input',
       message: 'Enter employees manager',
     },
-    );
+    ]).then(data => {
+      connection.query(
+        'INSERT INTO employee SET ?',
+        {
+          first_name: data.first_name,
+          last_name: data.last_name,
+          role_id: data.employee_role,
+          manager_id: data.manager,
+        },
+        (err, res) => {
+          if (err) throw err;
+          console.log(`${res.affectedRows} insert complete\n`);
+          mainMenu();
+        }
+      )
+    })
+  })
 };
+
+
 
 //view employee function
 
@@ -111,23 +130,30 @@ const addDepartment = () => {
       type: 'input',
       message: 'Enter the name of the department',
     },
-    {
-      name: 'department_id',
-      type: 'input',
-      message: 'Enter the department id',
-    },
-    );
+    ).then(data => {
+      connection.query(
+        'INSERT INTO department SET ?',
+        {
+          name: data.department_name
+        },
+        (err, res) => {
+          if (err) throw err;
+          console.log(`${res.affectedRows} insert complete\n`);
+          mainMenu();
+        }
+      )
+    })
 }
 
-
+//view departments
 
 
 const addRole = () => {
   inquirer
-    .prompt({
-      name: 'role_id',
+    .prompt([{
+      name: 'department_id',
       type: 'input',
-      message: 'Enter the id of the new role',
+      message: 'Enter the department id of the new role',
     },
 
     {
@@ -141,5 +167,22 @@ const addRole = () => {
       type: 'input',
       message: 'Enter the salary for role',
     },
-    );
+    ] ).then(data => {
+      connection.query(
+        'INSERT INTO role SET ?',
+        {
+          title: data.title,
+          salary: data.salary,
+          department_id: data.department_id
+        },
+        (err, res) => {
+          if (err) throw err;
+          console.log(`${res.affectedRows} insert complete\n`);
+          mainMenu();
+        }
+      )
+    })
 };
+
+
+//update roles
