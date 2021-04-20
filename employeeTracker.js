@@ -44,7 +44,7 @@ const mainMenu = () => {
           break;
 
         case 'View employee list':
-          //View function();
+          viewEmployees();
           break;
         
         case 'Add department':
@@ -52,7 +52,7 @@ const mainMenu = () => {
           break;
 
         case 'View departments':
-          //View function();
+          viewDepartment();
           break;
 
         case 'Add a role':
@@ -119,7 +119,13 @@ const addEmployee = () => {
 
 
 
-//view employee function
+function viewEmployees() {
+  connection.query("SELECT employee.first_name, employee.last_name, role.title, role.salary, department.name, CONCAT(e.first_name, ' ' ,e.last_name) AS Manager FROM employee INNER JOIN role on role.id = employee.role_id INNER JOIN department on department.id = role.department_id left join employee e on employee.manager_id = e.id;", (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    mainMenu();
+})
+}
 
 
 
@@ -145,7 +151,13 @@ const addDepartment = () => {
     })
 }
 
-//view departments
+const viewDepartment = () => {
+  connection.query("SELECT * FROM department", (err, res) => {
+      if (err) throw err;
+      console.table(res);
+      mainMenu();
+  });
+};
 
 
 const addRole = () => {
