@@ -35,6 +35,9 @@ const mainMenu = () => {
         'View departments',
         'Add a role',
         'Update roles',
+        'Delete employee',
+        'Delete role',
+        'Delete department'
       ],
     })
     .then((answer) => {
@@ -61,6 +64,18 @@ const mainMenu = () => {
 
         case 'Update roles':
           //Update function();
+          break;
+        
+        case 'Delete employee':
+          deleteEmployee();
+          break;
+
+        case 'Delete role':
+          deleteRole();
+          break;
+
+        case 'Delete department':
+          deleteDepartment();
           break;
       }
     })
@@ -198,3 +213,68 @@ const addRole = () => {
 
 
 //update roles
+
+const deleteEmployee = () => {
+  connection.query('SELECT * FROM employee', (err, res) => {
+    if (err) throw err;
+    var employeeData = res.map(({ id, first_name, last_name }) => ({ name: first_name + " " + last_name, value: id }));
+    console.log(employeeData)
+      inquirer.prompt(
+          {
+              name: 'delete_employee',
+              type: 'list',
+              message: 'Select the employee you would like to delete?',
+              choices: employeeData
+          }
+      ).then(answers => {
+          connection.query('DELETE FROM employee WHERE id = ?', answers.delete_employee, (err, delete_employee) => {
+              console.log('Employee deleted successfully.')
+              mainMenu();
+          });
+      });
+  });
+}
+
+
+const deleteRole = () => {
+  connection.query('SELECT * FROM role', (err, res) => {
+    if (err) throw err;
+    var result = res.map(role => ({name: role.title, value: role.id}));
+      inquirer.prompt(
+          {
+              name: 'delete_role',
+              type: 'list',
+              message: 'Select the employee you would like to delete?',
+              choices: result
+          }
+      ).then(answers => {
+          connection.query('DELETE FROM role WHERE id = ?', answers.delete_role, (err, delete_role) => {
+            if (err) throw err;
+              console.log('Role deleted successfully.')
+              mainMenu();
+          });
+      });
+  });
+}
+
+
+const deleteDepartment = () => {
+  connection.query('SELECT * FROM department', (err, res) => {
+    if (err) throw err;
+    var departmentData = res.map( department => ({ name: department.name, value: department.id }));
+    console.log(departmentData)
+      inquirer.prompt(
+          {
+              name: 'delete_department',
+              type: 'list',
+              message: 'Select the employee you would like to delete?',
+              choices: departmentData
+          }
+      ).then(answers => {
+          connection.query('DELETE FROM department WHERE id = ?', answers.delete_department, (err, delete_department) => {
+              console.log('Department deleted successfully.')
+              mainMenu();
+          });
+      });
+  });
+}

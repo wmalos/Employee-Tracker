@@ -29,7 +29,7 @@ CREATE TABLE employee (
 
 INSERT INTO department (name) 
 VALUES
-('Sales'),
+('Sales')
 ('Developement'),
 ('Marketing'),
 ('Production'),
@@ -38,7 +38,7 @@ VALUES
 USE employeeTracker_db;
 INSERT INTO role (title, salary, department_id) 
 VALUES
-('Salesman', 65000, 1),
+('Salesperson', 50000,1),
 ('Engineer', 120000, 2),
 ('Analyst', 70000, 4),
 ('Accountant', 60000, 4),
