@@ -13,7 +13,7 @@ A Content Management System that allows you to store information about the emplo
 
 
 ## Installation
-Use npm i in order to install the dependencies.
+Use the commaand 'npm i' in order to install the dependencies.
 
 ## Usage
 It is used in the terminal by allowing the user to view all roles, departments, and employees, while also being able to add and delete them as well.
