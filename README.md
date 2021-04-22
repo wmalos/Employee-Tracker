@@ -9,7 +9,7 @@ A Content Management System that allows you to store information about the emplo
 - [Links](#links)
 - [Contact](#contact)
 
-![employeeTracker](https://github.com/wmalos/employeeTracker/Assets/employeeTracker.png)
+![employeeTracker](https://github.com/wmalos/Employee-Tracker/blob/main/Assets/employeeTracker.png)
 
 
 ## Installation
